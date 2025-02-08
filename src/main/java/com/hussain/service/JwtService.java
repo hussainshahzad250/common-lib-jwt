@@ -8,6 +8,7 @@ import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -68,7 +69,7 @@ public class JwtService {
         return Jwts.parserBuilder().setSigningKey(getSignInKey()).build().parseClaimsJws(token).getBody();
     }
 
-    private Key getSignInKey() {
+    private Key getSignInKey()  {
         if(!StringUtils.hasText(SECRET_KEY)){
             log.info("JWT secret key not found , kindly add jwt.secret-key in properties file");
             throw new IllegalArgumentException("JWT secret key is missing");
